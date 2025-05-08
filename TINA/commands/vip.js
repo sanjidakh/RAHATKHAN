@@ -5,17 +5,17 @@ const axios = require('axios');
 const crypto = require('crypto');
 
 module.exports.config = {
-    name: "vip",
-    version: "1.0.0",
-    hasPermission: 2,
-    credits: "RAHAT",
-    description: "Vip User",
-    usePrefix: true,
-    commandCategory: "Khan Rahul RK",
-    usages: "Vip user add",
-    cooldowns: 5,
-    dependencies: {
-    	};
+  name: "vip",
+  version: "1.0",
+  hasPermission: 0,
+  credits: "RAHAT😍",
+  countDown: 5,
+  adminOnly: false, 
+  description: "Manage VIP users (list, add, or remove VIPs)",
+  commandCategory: "Admin",
+  guide: "{pn} list - Shows the list of VIP users\n{pn} @username - Adds a user to the VIP list (Admin only)\n{pn} remove @username - Removes a user from the VIP list (Admin only)",
+  usePrefix: true,
+};
 
 module.exports.run = async function ({ api, event, args, getText, config }) {
   const { threadID, messageID, mentions, senderID } = event;
