@@ -15,7 +15,7 @@ module.exports.config = {
 };
 
 // API URL (Tumhara Gemini Backend)
-const API_URL = "https://rahatgemini.onrender.com/chat";
+const API_URL = "https://rahatgemini-amk4.onrender.com/chat";
 
 // User history and auto-reply state
 const chatHistories = {};
