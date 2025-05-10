@@ -22,6 +22,8 @@ module.exports = {
     cooldowns: 5,
     usePrefix: true,
 
+   };
+
     async execute({ api, event, args }) {
         const threadID = event.threadID;
         const messageID = event.messageID;
