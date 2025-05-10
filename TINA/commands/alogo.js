@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const ANIME_LOGO_API_URL = 'https://nexalo-api.vercel.app/api/anime-logo-generator';
 // ==========================
 
-module.exports = {
+module.exports.config = {
     name: "alogo",
     version: "1.0.0",
     author: "RAHAT🇧🇩",
