@@ -12,15 +12,14 @@ const ANIME_LOGO_API_URL = 'https://nexalo-api.vercel.app/api/anime-logo-generat
 module.exports.config = {
     name: "alogo",
     version: "1.0.0",
-    author: "RAHAT🇧🇩",
-    description: "Generate an anime-style logo with your text and a selected style 🎨",
-    adminOnly: false,
-    commandCategory: "Fun",
-    guide: "Use {pn}alogo <text> <style> to generate an anime logo.\n" +
-           "<style> must be a number between 1 and 5.\n" +
-           "Example: {pn}alogo Hridoy 2",
-    cooldowns: 5,
+    hasPermission: 0,
+    credits: "RAHAT🇧🇩",
+    description: "Alogo new update",
     usePrefix: true,
+    commandCategory: "Khan Rahul RK",
+    usages: "alogo rahat",
+    cooldowns: 5,
+    dependencies: {
 
    };
 
