@@ -23,7 +23,7 @@ module.exports = {
     name: "song",
     version: "1.0.4",
     hasPermssion: 0,
-    credits: "RAHAT KHAN",
+    credits: "RAHAT KHAN🌹",
     description: "Download YouTube song from keyword search",
     commandCategory: "Media",
     usages: "[songName]",
@@ -55,7 +55,7 @@ module.exports = {
       const videoUrl = `https://www.youtube.com/watch?v=${topResult.videoId}`;
 
       // 🖥 **API Call to Your YouTube Downloader**
-      const apiUrl = `https://rahat-music.onrender.com/download?url=${encodeURIComponent(videoUrl)}`;
+      const apiUrl = `https://rahat-music-w8d1.onrender.com/download?url=${encodeURIComponent(videoUrl)}`;
       const downloadResponse = await axios.get(apiUrl);
 
       if (!downloadResponse.data.file_url) {
