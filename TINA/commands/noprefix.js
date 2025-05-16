@@ -12,7 +12,7 @@ const link = [
 ];
  
 module.exports.config = {
-  name: " 🎧",
+  name: "🎧",
   version: "1.0.0",
   hasPermssion: 0,
   credits: "Islamick Cyber Chat",
@@ -36,7 +36,7 @@ module.exports.handleEvent = async ({ api, event, Threads }) => {
       "🖤🎧"
     
     ];
-    const cyber2 = cyber[Math.floor(Math.random() * cyber.length)];
+    const rahad2 = rahad[Math.floor(Math.random() * rahad.length)];
  
     const callback = () => api.sendMessage({
       body: `${rahad2}`,
