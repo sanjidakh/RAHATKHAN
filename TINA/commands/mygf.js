@@ -3,7 +3,7 @@ module.exports.config = {
     version: "2.6.0",
     hasPermssion: 2,
     credits: "RAHAT",
-    description: "",
+    description: "MY GF😍",
     commandCategory: "Love",
     usages: "[tag]",
     cooldowns: 5,
@@ -22,7 +22,7 @@ module.exports.onLoad = async() => {
     const dirMaterial = __dirname + `/cache/canvas/`;
     const path = resolve(__dirname, 'cache/canvas', 'mygf.png');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://i.imgur.com/RgK44IA.jpeg", path);
+    if (!existsSync(path)) await downloadFile("https://postimg.cc/z3FGmmJC", path);
 }
 
 async function makeImage({ one, two }) {
