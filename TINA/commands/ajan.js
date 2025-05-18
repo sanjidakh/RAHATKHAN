@@ -13,23 +13,23 @@ module.exports.onLoad = async ({ api }) => {
   const timerData = {
     "12:45 PM": {
       message: "এখন যোহর এর আজান দিবে সবাই নামাজ পড়েন",
-      url: "https://i.imgur.com/vtOBIkA.jpeg"
+      url: "https://postimg.cc/YhBZ25YJ"
     },
     "04:15 AM": {
       message: "এখন ফরজ এর আজান দিবে সবাই নামাজ পরে নাও",
-      url: "https://i.imgur.com/7K67WOG.jpeg"
+      url: "https://postimg.cc/G4Pgcj5s"
     },
     "04:00 PM": {
       message: "একটু পরে আছরের আজান দিবে সবাই নামাজ আদায় করে নিবেন",
-      url: "https://i.imgur.com/hprI30O.jpeg"
+      url: "https://postimg.cc/B8MhFnsS"
     },
     "05:15 PM": {
       message: "এখন মাগরিব এর আজান হবে সবাই নামাজ আদায় করবেন",
-      url: "https://i.imgur.com/vlFSFL6.jpeg"
+      url: "https://postimg.cc/VrhD7Zd2"
     },
     "07:00 PM": {
       message: "এখন এশার আজান দিবে এই সব কাজ অফ করে নামাজ পড়েন",
-      url: "https://i.imgur.com/7K67WOG.jpeg"
+      url: "https://postimg.cc/G4Pgcj5s"
     }
   };
 
