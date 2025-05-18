@@ -18,7 +18,7 @@ module.exports.onLoad = async() => {
     const dirMaterial = __dirname + `/cache/canvas/`;
     const path = resolve(__dirname, 'cache/canvas', 'aar2.jpg');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://postimg.cc/TyYzFS3P", path);
+    if (!existsSync(path)) await downloadFile("https://i.postimg.cc/q78phHf2/aV3ogk6.jpg", path);
 }
 async function makeImage({ one, two }) {
     const fs = global.nodemodule["fs-extra"];
