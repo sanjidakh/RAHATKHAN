@@ -28,7 +28,7 @@ module.exports.run = async function({ api, event, args, Threads, Users, Currenci
         let Avatar = (await axios.get( `https://graph.facebook.com/${event.senderID}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data; 
             fs.writeFileSync( __dirname + "/cache/avt.png", Buffer.from(Avatar, "utf-8") );
 
-        let gifLove = (await axios.get( `https://i.imgur.com/vcydK3t.gif`, { responseType: "arraybuffer" } )).data; 
+        let gifLove = (await axios.get( `https://i.postimg.cc/nrmz9zyH/vcydK3t.gif`, { responseType: "arraybuffer" } )).data; 
             fs.writeFileSync( __dirname + "/cache/giflove.png", Buffer.from(gifLove, "utf-8") );
 
         let Avatar2 = (await axios.get( `https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data;
