@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "fram",
+    name: "frame8",
     version: "7.3.1",
     hasPermssion: 0,
     credits: " RAHAT",///don't change my Credit Coz i Edit 
@@ -22,7 +22,7 @@ module.exports.onLoad = async() => {
     const dirMaterial = __dirname + `/cache/canvas/`;
     const path = resolve(__dirname, 'cache/canvas', 'fram.jpg');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://postimg.cc/yWPb4j2g", path);
+    if (!existsSync(path)) await downloadFile("https://i.postimg.cc/65JJZ100/images-1-2.jpg", path);
 }
 
 async function makeImage({ one, two }) {
