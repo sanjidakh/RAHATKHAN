@@ -2,7 +2,7 @@ module.exports.config = {
     name: "gf",
     version: "7.3.1",
     hasPermssion: 0,
-    credits: " Priyansh Rajput", 
+    credits: "RAHAT😍", 
     description: "Get Pair From Mention",
     commandCategory: "img",
     usages: "[@mention]",
@@ -22,7 +22,7 @@ module.exports.onLoad = async() => {
     const dirMaterial = __dirname + `/cache/canvas/`;
     const path = resolve(__dirname, 'cache/canvas', 'arr2.png');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://i.imgur.com/iaOiAXe.jpeg", path); 
+    if (!existsSync(path)) await downloadFile("https://postimg.cc/1ng3h434", path); 
 }
 
 async function makeImage({ one, two }) {
