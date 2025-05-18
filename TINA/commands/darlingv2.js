@@ -38,7 +38,7 @@ const path = resolve(__dirname, 'cache/canvas', 'pairing.png1');
 
 if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
 
-if (!existsSync(path)) await downloadFile("https://i.imgur.com/wvtSGoi.jpeg", path);
+if (!existsSync(path)) await downloadFile("https://postimg.cc/ZWDHYDLn", path);
 
 }
 
