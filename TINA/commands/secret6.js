@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "secretv7",
+  name: "secretv6",
   version: "1.0.1",
   hasPermssion: 0,
   credits: "RAHUL",
