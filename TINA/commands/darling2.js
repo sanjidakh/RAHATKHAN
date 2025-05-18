@@ -1,6 +1,6 @@
 module.exports.config = {
 
-name: "darlingv2",
+name: "darling2",
 
 version: "1.0.1",
 
@@ -38,7 +38,7 @@ const path = resolve(__dirname, 'cache/canvas', 'pairing.png1');
 
 if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
 
-if (!existsSync(path)) await downloadFile("https://postimg.cc/ZWDHYDLn", path);
+if (!existsSync(path)) await downloadFile("https://i.postimg.cc/YSts35G6/wvtSGoi.jpg", path);
 
 }
 
