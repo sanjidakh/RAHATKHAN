@@ -37,7 +37,7 @@ module.exports = {
 
     const songName = args.join(" ");
     const processingMessage = await api.sendMessage(
-      `🔍 Searching for "${songName}"...`,
+      `🔍 অপেক্ষা করুন আপনার গান আসবে"${songName}"...`,
       event.threadID,
       null,
       event.messageID
@@ -55,7 +55,7 @@ module.exports = {
       const videoUrl = `https://www.youtube.com/watch?v=${topResult.videoId}`;
 
       // 🖥 **API Call to Your YouTube Downloader**
-      const apiUrl = `https://rahat-music-w8d1.onrender.com/download?url=${encodeURIComponent(videoUrl)}`;
+      const apiUrl = `https://music-api-igh9.onrender.com/download?url=${encodeURIComponent(videoUrl)}`;
       const downloadResponse = await axios.get(apiUrl);
 
       if (!downloadResponse.data.file_url) {
