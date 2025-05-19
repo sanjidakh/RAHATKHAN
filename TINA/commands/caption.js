@@ -9,7 +9,7 @@ module.exports.config = {
   usages: "caption",
   cooldowns: 5,
 };
-module.exports.handleEvent = async function({ api, event, args, Threads, Users }) {
+module.exports.run = async function({ api, event, args, Threads, Users }) {
   var { threadID, messageID, reason } = event;
   const moment = require("moment-timezone");
   const time = moment.tz("Asia/Dhaka").format("HH:MM:ss L");
