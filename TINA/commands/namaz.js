@@ -26,7 +26,7 @@ module.exports.run = async function({ api, event, args }) {
 
 const pic = (
       await axios.get(
-        'https://i.imgur.com/gZuqamL.jpeg',
+        'https://i.postimg.cc/rskP7s75/gZuqamL.jpg',
         { responseType: 'stream' }
       )
     ).data;
