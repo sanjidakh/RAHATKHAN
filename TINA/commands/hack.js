@@ -1,16 +1,17 @@
 module.exports.config = {
-  name: "hack",
-  version: "1.0.0",
-  hasPermssion: 0,
+  name: "hack", 
+  version: "1.0.0", 
+  hasPermission: 0,
   credits: "RAHAT",
-  description: "hack",
-  commandCategory: "hack",
-  usages: "@mention",
+  description: "example",
+  usePrefix: true,
+  commandCategory: "Fun", 
+  usages: "user", 
+  cooldowns: 5,
   dependencies: {
         "axios": "",
         "fs-extra": ""
-  },
-  cooldowns: 0
+  }
 };
 
 module.exports.wrapText = (ctx, name, maxWidth) => {
@@ -56,7 +57,7 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
   
   var background = [
 
-    "https://i.postimg.cc/J0NNGJ8Z/q-El8678-STs.png"
+    "https://drive.google.com/uc?id=1RwJnJTzUmwOmP3N_mZzxtp63wbvt9bLZ"
 ];
   var rd = background[Math.floor(Math.random() * background.length)];
   
@@ -96,7 +97,7 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
   const imageBuffer = canvas.toBuffer();
   fs.writeFileSync(pathImg, imageBuffer);
   fs.removeSync(pathAvt1);
-  return api.sendMessage({ body: `জানটুস তোমার আইডি হেক করলাম পারলে নিয়া নিয় আজকে ইনবক্স এর সব মেসেজ দেকমু🥹🤣`, attachment: fs.createReadStream(pathImg) },
+  return api.sendMessage({ body: ` `, attachment: fs.createReadStream(pathImg) },
       event.threadID,
       () => fs.unlinkSync(pathImg),
       event.messageID);
