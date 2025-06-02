@@ -3,17 +3,17 @@ const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
 
-module.exports = {
-    name: "art",
-    version: "1.0.0",
-    hasPermission: 0,
-    credits: "Hridoy",
-    description: "Generate AI art based on a user prompt.",
-    adminOnly: false,
-    commandCategory: "AI",
-    guide: "{pn}art <prompt> - Generate AI art with the given prompt (e.g., !art futuristic city).",
-    cooldowns: 10,
-    usePrefix: true,
+module.exports.config = {
+  name: "art",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "KHAN RAHUL RK🥰",
+  description: "",
+  usePrefix: true,
+  commandCategory: "Media",
+  usages:  "ai",
+  cooldowns: 5,
+};
 
     async execute({ api, event }) {
         const threadID = event.threadID;
