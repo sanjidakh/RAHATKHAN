@@ -1,84 +1,39 @@
-const config = require('../../config/config.json');
-const axios = require('axios');
-const fs = require('fs-extra');
-const path = require('path');
-
 module.exports.config = {
-  name: "art",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "KHAN RAHUL RK🥰",
-  description: "",
-  usePrefix: true,
-  commandCategory: "Media",
-  usages:  "ai",
-  cooldowns: 5,
+  name: "art",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "RAHAT🌹",
+  description: "Animefy",
+  commandCategory: "editing",
+  usages: "reply image",
+  cooldowns: 5
 };
 
-    async execute({ api, event }) {
-        const threadID = event.threadID;
-        const messageID = event.messageID;
-        const args = event.body.split(' ').slice(1);
-        const prefix = config.prefix || "!";
+module.exports.run = async ({ api, event, args }) => {
+  const axios = require('axios');
+  const fs = require('fs-extra');
+  let pathie = __dirname + `/cache/animefy.jpg`;
+  const { threadID, messageID } = event;
 
-        if (!args[0]) {
-            return api.sendMessage(`${config.bot.botName}: ❌ Please provide a prompt (e.g., ${prefix}art futuristic city).`, threadID, messageID);
-        }
+  var james = event.messageReply.attachments[0].url || args.join(" ");
 
-        const prompt = args.join(' ');
-        console.log(`Generating AI art for prompt: ${prompt}`);
+try {
+    const lim = await axios.get(`https://nexalo-api.vercel.app/api/art?prompt=${encodeURIComponent(james)}`);
+     const image = lim.data.urls[1];
 
-        try {
-            const apiUrl = `https://nexalo-api.vercel.app/api/art?prompt=${encodeURIComponent(prompt)}`;
-            console.log(`Sending request to ${apiUrl}`);
+     const img = (await axios.get(`https://www.drawever.com${image}`, { responseType: "arraybuffer"})).data;
 
-            const response = await axios.get(apiUrl, { timeout: 10000 });
-            const data = response.data;
-            console.log(`API response received: ${JSON.stringify(data)}`);
+     fs.writeFileSync(pathie, Buffer.from(img, 'utf-8'));
 
-            if (!data.response) {
-                return api.sendMessage(`${config.bot.botName}: ❌ No art generated for "${prompt}".`, threadID, messageID);
-            }
+     api.sendMessage({
+       body: "here's your image",
+       attachment: fs.createReadStream(pathie)
+     }, threadID, () => fs.unlinkSync(pathie), messageID);
 
-            const imageUrl = data.response;
-            const tempDir = path.join(__dirname, '../../temp');
-            await fs.ensureDir(tempDir);
 
-            const fileName = `art_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.jpg`;
-            const filePath = path.join(tempDir, fileName);
-            console.log(`Downloading image from ${imageUrl} to ${filePath}`);
 
-            let imageResponse;
-            const maxRetries = 2;
-            for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                try {
-                    imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer', timeout: 30000 });
-                    break;
-                } catch (error) {
-                    if (attempt === maxRetries) {
-                        throw new Error(`Failed to download image after ${maxRetries} attempts: ${error.message}`);
-                    }
-                    console.log(`Attempt ${attempt} failed: ${error.message}. Retrying...`);
-                    await new Promise(resolve => setTimeout(resolve, 2000)); 
-                }
-            }
+  } catch (e) {
+  api.sendMessage(`error occurred:\n\n${e}`, threadID, messageID);
+  };
 
-            await fs.writeFile(filePath, imageResponse.data);
-            console.log(`Image saved: ${filePath}`);
-
-            const msg = {
-                body: `${config.bot.botName}: 🎨 Generated AI art for "${prompt}"!`,
-                attachment: fs.createReadStream(filePath)
-            };
-
-            await api.sendMessage(msg, threadID, messageID);
-            console.log(`Sent art image to thread ${threadID}`);
-
-            await fs.unlink(filePath).catch(err => console.log(`Failed to clean up ${filePath}: ${err.message}`));
-            console.log(`Cleaned up ${filePath}`);
-        } catch (error) {
-            console.log(`Error in art command: ${error.message}`);
-            api.sendMessage(`${config.bot.botName}: ❌ Failed to generate art: ${error.message}`, threadID, messageID);
-        }
-    }
 };
