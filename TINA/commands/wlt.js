@@ -7,13 +7,14 @@ module.exports = {
 		name: "whitelistthread",
 		aliases: ["wlt", "wt"],
 		version: "1.5",
-		author: "RAHAT🙂",
+		hasPermission: 2,
+		credits: "RAHAT🙂",
 		countDown: 5,
 		role: 2,
 		description: {
 			en: "Add, remove, edit whiteListThreadIds role"
 		},
-		category: "owner",
+		commandCategory: "owner",
 		guide: {
 			en: '   {pn} [add | -a | +] [<tid>...]: Add whiteListThreadIds role for the current thread or specified thread IDs'
 				+ '\n   {pn} [remove | -r | -] [<tid>...]: Remove whiteListThreadIds role from the current thread or specified thread IDs'
@@ -39,7 +40,7 @@ module.exports = {
 		}
 	},
 
-	onStart: async function ({ message, args, event, getLang, api }) {
+	run: async function ({ message, args, event, getLang, api }) {
 		switch (args[0]) {
 			case "add":
 			case "-a":
