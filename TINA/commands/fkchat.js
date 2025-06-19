@@ -1,16 +1,18 @@
-module.exports = {
-config: {
-	name: "gc",
-  hasPermission: 2,
-	credits: "RAHAT",
-	commandCategory: "fun",
-	version: "2.5",
-	countDown: 5,
-	role: 0,
-	guide: {en:"<text> ++ <text> | reply | --user <uid> | --theme <theme number> | --attachment <image url> | --time <true or false> | blank\nTHEMES:\n0. lo-fi\n1. bubble tea\n2. swimming\n3. lucky pink\n4. default\n5. monochrome\nAdding more themes soon"
-}
-},
-run: async function({ message, usersData, event, args, api }) {
+module.exports.config = {
+  name: "fkchat",
+  version: "2.0",
+  hasPermssion: 2,
+  usePrefix: true,
+  credits: "𝐊𝐡𝐚𝐧 𝐑𝐚𝐡𝐮𝐥 𝐑𝐊",
+  description: "",
+  commandCategory: "",
+  countDown: 3,
+  role: 0,
+	guide: {en:"<text> ++ <text> | reply | --user <uid> | --theme <theme number> | --attachment <image url> | --time <true or false> | blank\nTHEMES:\n0. lo-fi\n1. bubble tea\n2. swimming\n3. lucky pink\n4. default\n5. monochrome\nAdding more themes soon",
+     }
+};
+
+module.exports.run= async function({ message, usersData, event, args, api }) {
 let prompt = args.join(" ").split("\n").join("++");
 if (!prompt) { return message.reply("❌ | provide a text");
 } 
