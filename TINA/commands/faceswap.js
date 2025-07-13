@@ -1,6 +1,6 @@
-const fs = require("fs");
-const axios = require("axios");
-const path = require("path");
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.config = {
   name: "faceswap",
@@ -18,42 +18,41 @@ module.exports.config = {
   
 };
 
-module.exports.run = async function ({ api, event }) {
-  try {
-    if (event.type !== "message_reply") 
-      return api.sendMessage("❗ Please reply to two images.", event.threadID);
-
-    const attachments = event.messageReply.attachments;
-    if (!attachments || attachments.length !== 2)
-      return api.sendMessage("❗ You must reply to exactly 2 images.", event.threadID);
-
-    const [baseImage, swapImage] = attachments;
-
-    if (baseImage.type !== "photo" || swapImage.type !== "photo")
-      return api.sendMessage("❗ Both attachments must be images.", event.threadID);
-
-    const baseUrl = encodeURIComponent(baseImage.url);
-    const swapUrl = encodeURIComponent(swapImage.url);
-
-    const apiUrl = `https://kaiz-apis.gleeze.com/api/faceswap?baseUrl=${baseUrl}&swapUrl=${swapUrl}&apikey=`; //Get apikey in Kaiz-apis!
-
-    const res = await axios.get(apiUrl, { responseType: 'arraybuffer' });
-
-    const cacheDir = path.join(__dirname, '..', 'cache');
-    if (!fs.existsSync(cacheDir)) {
-      fs.mkdirSync(cacheDir, { recursive: true });
+module.exports.run = async function({ api, event }) {
+    if (!event.messageReply || !event.messageReply.attachments || event.messageReply.attachments.length < 2) {
+        return api.sendMessage('Please reply to two image attachments with "faceswap".', event.threadID, event.messageID);
     }
 
-    const filePath = path.join(cacheDir, `faceswap_${Date.now()}.png`);
-    fs.writeFileSync(filePath, Buffer.from(res.data, 'binary'));
+    const attachments = event.messageReply.attachments;
+    if (!attachments.every(att => att.type === 'photo')) {
+        return api.sendMessage('Both attachments must be images.', event.threadID, event.messageID);
+    }
 
-    return api.sendMessage({
-      body: "✅ Face swap complete!",
-      attachment: fs.createReadStream(filePath)
-    }, event.threadID);
+    const img1 = attachments[0].url;
+    const img2 = attachments[1].url;
 
-  } catch (error) {
-    console.error(error);
-    return api.sendMessage("❌ Error: " + error.message, event.threadID);
-  }
+    const apiUrl = `https://kaiz-apis.gleeze.com/api/faceswap?swapUrl=${encodeURIComponent(img1)}&baseUrl=${encodeURIComponent(img2)}`;
+
+    api.sendMessage('Swapping faces... Please wait.', event.threadID, event.messageID);
+
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: apiUrl,
+            responseType: 'arraybuffer',
+        });
+
+        const filePath = path.join(__dirname, 'cache', `faceswap_${Date.now()}.jpg`);
+        fs.writeFileSync(filePath, response.data);
+
+        await api.sendMessage({
+            body: 'Here is the face-swapped image:',
+            attachment: fs.createReadStream(filePath),
+        }, event.threadID, event.messageID);
+
+        fs.unlinkSync(filePath);
+    } catch (error) {
+        console.error('Error during faceswap:', error.message);
+        api.sendMessage('An error occurred while swapping faces. Please try again later.', event.threadID, event.messageID);
+    }
 };
