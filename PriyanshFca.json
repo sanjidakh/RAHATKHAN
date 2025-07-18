@@ -3,7 +3,7 @@
 	"PreKey": "",
 	"AutoUpdate": true,
 	"MainColor": "#9900FF",
-	"MainName": "[ FCA-NAZRUL ]",
+	"MainName": "[ FCA-PRIYANSH ]",
 	"Uptime": false,
 	"Config": "default",
 	"DevMode": false,
@@ -20,7 +20,7 @@
 	"Websocket_Extension": {
 		"Status": false,
 		"ResetData": false,
-		"AppState_Path": "Nazrulstate.json"
+		"AppState_Path": "appstate.json"
 	},
 	"HTML": {
 		"HTML": true,
