@@ -15,7 +15,7 @@ module.exports = {
     const prompt = (event.messageReply?.body.split("dalle")[1] || args.join(" ")).trim();
     if (!prompt) return api.sendMessage("❌| Wrong Format. ✅ | Use: 17/18 years old boy/girl watching football match on TV with 'Khan Rahul RK' and '69' written on the back of their dress, 4k", event.threadID, event.messageID);
     try {
-  const cookies = ["1vTP8xlb8fgO0BOsHJRASjT7p_h27brHBjx4HZZBR507xJ_UqC79pnkgoJgRoWqdQYoIJCQ8zXBRadq24u2e8Q9kx6enYkK6XV9Jo0mJrqCkYaeGqBKREP53-ZTB-8trpLS1qfVYTuSoxDZbG7aLmtCqSpU5up96WuRMeq--iNYIjWhr26NEYYCI075_NWaM9kjhATbeH9TBSqJf7qYYngQ"];
+  const cookies = ["1RCffFmNTt9Kptb9J92Y0QR2aV-wpTg2Uh-vetjDlRzR7TZdtVCUc0ZlyKR5KUB0526KQf8jCUtEhY8H4Md6cvRMGNscUpEww5G3FnkeApYDzjHXPm99fcmtNYN65qO-Gyrt3DLnQFaZtcCPssHYmx0PVPOS4i7Pa6Jfq_RXCtokrRIEhHIROAIZB3v6_k0k5uulI8u1uld36pBNS3D9zZA"];
 const randomCookie = cookies[Math.floor(Math.random() * cookies.length)];
       const wait = api.sendMessage("𝐏𝐥𝐞𝐚𝐬𝐞 𝐖𝐚𝐢𝐭𝐢𝐧𝐠 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 𝐘𝐨𝐮𝐫 𝐈𝐦𝐚𝐠𝐞 \n\n𝐊𝐡𝐚𝐧 𝐑𝐚𝐡𝐮𝐥 𝐑𝐊", event.threadID);
       const response = await axios.get(`https://www.noobs-api.rf.gd/dipto/dalle?prompt=${prompt}&key=dipto008&cookie=${cookies}`);
