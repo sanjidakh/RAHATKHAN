@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe to Mirrykal</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      animation: blink 0.5s infinite alternate;
+    }
+    @keyframes blink {
+      0%   { background-color: #ff0033; }
+      25%  { background-color: #ffcc00; }
+      50%  { background-color: #00ccff; }
+      75%  { background-color: #66ff66; }
+      100% { background-color: #ff66cc; }
+    }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 60vh;
+      border: none;
+    }
+    .sticker-container {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+    .sticker-img {
+      height: 150px;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .subscribe-button, .unmute-button {
+      margin-top: -20px;
+      font-size: 24px;
+      padding: 12px 24px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10px;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- YouTube iframe -->
+  <div id="player"></div>
+
+  <!-- Sticker + Buttons -->
+  <div class="sticker-container">
+    <img src="https://media.giphy.com/media/12HZukMBlutpoQ/giphy.gif" alt="Animal Sticker" class="sticker-img">
+    <button class="subscribe-button" onclick="alert('Thanks for subscribing! 🎉')">SUBSCRIBE</button>
+    <button class="unmute-button" onclick="unmuteVideo()">🔊 UNMUTE VIDEO</button>
+  </div>
+
+  <!-- YouTube API Script -->
+  <script>
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: 'aZXKCFPxKjs',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          playlist: 'aZXKCFPxKjs',
+          controls: 0,
+          modestbranding: 1,
+          showinfo: 0
+        },
+        events: {
+          onReady: (e) => e.target.playVideo()
+        }
+      });
+    }
+
+    function unmuteVideo() {
+      if (player) {
+        player.unMute();
+      }
+    }
+
+    // Load YouTube API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+  </script>
+</body>
+</html>
