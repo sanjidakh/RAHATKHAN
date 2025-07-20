@@ -2,7 +2,7 @@
 "name": "Rudra",
 "version": "10.1.1",
 "description": "A powerful Facebook Messenger Bot made by Rudra Jaat.",
-"main": "rudra.js",
+"main": "TINA.js",
 "engines": {
 "node": "20.x",
 "npm": "10.0.0"
@@ -58,7 +58,7 @@
 "extract-zip": "^2.0.1",
 "fb-tools": "0.0.1-security",
 "fca-smart-shankar": "^13.0.0",
-"fca-mtx-uzair": "^19.0.0",
+"fca-priyansh": "^19.0.0",
 "figlet": "^1.5.2",
 "fluent-ffmpeg": "latest",
 "ffmpeg-static": "latest",
