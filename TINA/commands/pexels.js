@@ -2,7 +2,7 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
-const API_KEY = "❌❌❌❌❌";
+const API_KEY = "MjKgrxyVIbs5arRYmTc9g4Zd3QotqJBnsHdj7WfcspY3E3LLaqgosjYk";
 
 module.exports = {
   config: {
