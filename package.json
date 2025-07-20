@@ -1,8 +1,8 @@
 {
-"name": "RAHAT",
+"name": "Rudra",
 "version": "10.1.1",
-"description": "A powerful Facebook Messenger Bot made by RAHAT KHAN.",
-"main": "TINA.js",
+"description": "A powerful Facebook Messenger Bot made by Rudra Jaat.",
+"main": "rudra.js",
 "engines": {
 "node": "20.x",
 "npm": "10.0.0"
@@ -30,7 +30,7 @@
 "fb-bot",
 "ai"
 ],
-"author": "🛡️RAHAT",
+"author": "🛡️ Rudra Jaat",
 "license": "GPL-3.0",
 "dependencies": {
 "@distube/ytdl-core": "^4.16.5",
