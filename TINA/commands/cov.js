@@ -5,18 +5,25 @@ const path = require('path');
 const crypto = require('crypto');
 const logger = require('../../includes/logger');
 
-module.exports = {
+module.exports.config = {
     name: "cvo",
     version: "1.0.0",
-    author: "RAHAT",
+    credits: "RAHAT",
+    hasPermission: 0,
     description: "Generate a Crying vs Okay emoji meme image with your texts.",
     adminOnly: false,
     commandCategory: "Fun",
     guide: "Use {pn}cvo <text 1> | <text 2> to generate a Crying vs Okay meme.\nExample: {pn}cvo When you have to wake up early | When you remember it's weekend",
     cooldowns: 5,
     usePrefix: true,
+    cooldowns: 5,
+    dependencies: {
 
-    async execute({ api, event, args }) {
+    },   
+
+        
+
+    module.exports.run = async function({ api, event, args }) {
         const threadID = event.threadID;
         const messageID = event.messageID;
         const senderID = event.senderID;
