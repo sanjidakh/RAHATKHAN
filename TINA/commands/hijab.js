@@ -6,8 +6,8 @@ module.exports = {
     config: {
         name: 'hijab',
         version: '1.0',
-        credits: 'Hridoy+',
-        hasPermission: 0,
+        credits: 'RAHAT',
+        hasPermission: 2,
         countDown: 10,
         usePrefix: true,
         groupAdminOnly: false,
