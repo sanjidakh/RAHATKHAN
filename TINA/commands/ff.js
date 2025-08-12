@@ -1,105 +1,170 @@
-const axios = require('axios');
+// get.js
+const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
 
-module.exports.config = {
-    name: "ff",
-    version: "1.0.3",
-    hasPermission: 0,
-    credits: "RAHAT KHAN💔",
-    description: "Get detailed information of the account Free Fire qua ID",
-    commandCategory: "Khan Rahul RK",
-    usages: "ff",
-    cooldowns: 5,
+const API_KEY = "2f25567051a78d2f2b60a261af6babb8cb161bb32e24122eb4e6f21c767f46e0";
+const BASE_URL = "https://firestats.onrender.com/api";
+
+module.exports = {
+  config: {
+    name: "info",
+    version: "1.0",
+    credits: "RAHAT",
+    countDown: 5,
+    hasPermission: 0,
+    description: {
+      vi: "",
+      en: "Get FF player profile info"
+    },
+    commandCategory: "information",
+    guide: {
+      vi: "[UID]",
+      en: "{pn}get [UID]"
+    }
+  },
+
+  run: async function ({ api, args, message }) {
+    const uid = args[0];
+    if (!uid) return message.reply("Please provide a UID!");
+
+    const profileUrl = `${BASE_URL}/profileinfo/v1?uid=${uid}&api=${API_KEY}`;
+    const outfitUrl = `${BASE_URL}/outfit/v1?uid=${uid}&api=${API_KEY}`;
+
+    const waitMessage = await message.reply("🍁 Please wait...");
+
+    try {
+      // Parallel API calls for speed
+      const [profileRes, outfitRes] = await Promise.all([
+        axios.get(profileUrl),
+        axios.get(outfitUrl, { responseType: "arraybuffer" })
+      ]);
+
+      const profileData = profileRes.data;
+      if (profileData.ban_status.status !== 200) {
+        await api.unsendMessage(waitMessage.messageID);
+        return message.reply("Failed to fetch info. Check UID.");
+      }
+
+      const banStatus = profileData.ban_status.data;
+      const basicInfo = profileData.profile_info.basicInfo;
+      const clanInfo = profileData.profile_info.clanBasicInfo;
+      const socialInfo = profileData.profile_info.socialInfo;
+      const petInfo = profileData.profile_info.petInfo;
+      const creditScoreInfo = profileData.profile_info.creditScoreInfo;
+
+      const formattedMessage = `
+**PLAYER INFO**
+
+┌⌚ **PLAYER ACTIVITY**
+├─Last Login At: ${basicInfo.lastLoginAt ? new Date(basicInfo.lastLoginAt * 1000).toLocaleString() : "N/A"}
+└─Created At: ${basicInfo.createAt ? new Date(parseInt(basicInfo.createAt)).toLocaleString() : "N/A"}
+
+┌💁‍♂️ **BASIC INFO**
+├─Nickname: ${basicInfo.nickname || "N/A"}
+├─UID: ${basicInfo.accountId || "N/A"}
+├─Region: ${basicInfo.region || "N/A"}
+├─Level: ${basicInfo.level || "N/A"}
+├─Exp: ${basicInfo.exp || "N/A"}
+├─Badge Count: ${basicInfo.badgeCnt || "N/A"}
+├─Liked Count: ${basicInfo.liked || "N/A"}
+└─Title ID: ${basicInfo.title || "N/A"}
+
+┌📈 **PLAYER RANKS**
+├─BR Rank Point: ${basicInfo.rankingPoints || "N/A"}
+├─CS Rank Point: ${basicInfo.csRankingPoints || "N/A"}
+├─Max Rank: ${basicInfo.maxRank || "N/A"}
+└─CS Max Rank: ${basicInfo.csMaxRank || "N/A"}
+
+┌🫡 **SOCIAL INFO**
+├─Language: ${socialInfo.language || "N/A"}
+├─Gender: ${socialInfo.gender || "N/A"}
+└─Signature: ${socialInfo.signature || "N/A"}
+
+┌👨‍👩‍👧‍👦 **GUILD INFO**
+├─Guild Name: ${clanInfo.clanName || "N/A"}
+├─Guild ID: ${clanInfo.clanId || "N/A"}
+├─Guild Level: ${clanInfo.clanLevel || "N/A"}
+└─Members/Capacity: ${clanInfo.memberNum || 0}/${clanInfo.capacity || 0}
+
+┌🐶 **PET INFO**
+├─Pet ID: ${petInfo.id || "N/A"}
+├─Level: ${petInfo.level || "N/A"}
+└─Exp: ${petInfo.exp || "N/A"}
+
+┌💳 **CREDIT SCORE**
+└─Score: ${creditScoreInfo.creditScore || "N/A"}
+
+┌🚫 **BAN STATUS**
+├─Is Banned: ${banStatus.is_banned ? "Yes" : "No"}
+├─Period: ${banStatus.period || "N/A"}
+└─Last Login: ${banStatus.last_login ? new Date(banStatus.last_login * 1000).toLocaleString() : "N/A"}
+`;
+
+      await api.unsendMessage(waitMessage.messageID);
+
+      const outfitPath = path.resolve(__dirname, `temp_outfit_${uid}.jpg`);
+      fs.writeFileSync(outfitPath, Buffer.from(outfitRes.data));
+
+      return message.reply({
+        body: formattedMessage,
+        attachment: fs.createReadStream(outfitPath)
+      }).then(() => fs.unlinkSync(outfitPath)).catch(() => {});
+    } catch (error) {
+      await api.unsendMessage(waitMessage.messageID);
+      return message.reply("Error fetching data.");
+    }
+  }
 };
 
-module.exports.handleReply = async function({
-    api,
-    event,
-    handleReply
-}) {
-    if (handleReply.step === 1) {
-        const region = event.body.toLowerCase();
-        const validRegions = ["bd", "dhaka", "Bd", "Dhaka"];
+// info.js
+const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
 
-        if (!validRegions.includes(region)) {
-            return api.sendMessage("The area is invalid. Please choose: bd, dhaka, Bd, Dhaka", event.threadID, event.messageID);
-        }
+const API_KEY = "2f25567051a78d2f2b60a261af6babb8cb161bb32e24122eb4e6f21c767f46e0";
+const BASE_URL = "https://firestats.onrender.com/api";
 
-        return api.sendMessage("Enter the free Fire account ID:", event.threadID, (err, info) => {
-            global.client.handleReply.push({
-                name: module.exports.config.name,
-                messageID: info.messageID,
-                author: event.senderID,
-                step: 2,
-                region
-            });
-        }, event.messageID);
-    }
+module.exports = {
+  config: {
+    name: "ff",
+    version: "1.0",
+    author: "RAHAT",
+    countDown: 5,
+    hasPermission: 0,
+    description: {
+      vi: "",
+      en: "Get FF player collection info"
+    },
+    commandCategory: "information",
+    guide: {
+      vi: "[UID]",
+      en: "{pn}info [UID]"
+    }
+  },
 
-    if (handleReply.step === 2) {
-        const ffId = event.body;
-        const region = handleReply.region;
-        const apiUrl = `https://firestats.onrender.com/dashboard/profile_info?uid=${ffId}&region=${region}&key=FFwlx`;
+  run: async function ({ api, args, message }) {
+    const uid = args[0];
+    if (!uid) return message.reply("Please provide a UID!");
 
-        try {
-            const response = await axios.get(apiUrl);
-            const data = response.data;
+    const collectionUrl = `${BASE_URL}/collection?uid=${uid}&api=${API_KEY}`;
 
-            if (data && data.AccountInfo) {
-                const info = data.AccountInfo;
-                const guild = data.GuildInfo;
-                const pet = data.petInfo;
-                const social = data.socialinfo;
+    const waitMessage = await message.reply("🍁 Please wait...");
 
-                let resultMessage = "Account information:\n";
-                resultMessage += `👤 Name: ${info.AccountName}\n`;
-                resultMessage += `🆔 ID: ${info.AccountBPID}\n`;
-                resultMessage += `⭐ Level: ${info.AccountLevel} (EXP: ${info.AccountEXP})\n`;
-                resultMessage += `🔥 Badge BP: ${info.AccountBPBadges}\n`;
-                resultMessage += `📅 Account Creation date: ${new Date(info.AccountCreateTime * 1000).toLocaleString('bd-Dhaka')}\n`;
-                resultMessage += `🔄 Last login: ${new Date(info.AccountLastLogin * 1000).toLocaleString('Bd-dhaka')}\n`;
-                resultMessage += `❤️ Like: ${info.AccountLikes}\n`;
+    try {
+      const response = await axios.get(collectionUrl, { responseType: "arraybuffer" });
 
-                if (guild) {
-                    resultMessage += "\n🛡️ GUILD Info:\n";
-                    resultMessage += `🏰 Name: ${guild.GuildName}\n`;
-                    resultMessage += `🔢 ID: ${guild.GuildID}\n`;
-                    resultMessage += `🎖 Level: ${guild.GuildLevel}\n`;
-                    resultMessage += `👥 Member: ${guild.GuildMember}/${guild.GuildCapacity}\n`;
-                }
+      await api.unsendMessage(waitMessage.messageID);
 
-                if (pet) {
-                    resultMessage += "\n🐾 PET Info:\n";
-                    resultMessage += `🐶 Name: ${pet.name}\n`;
-                    resultMessage += `🎖 Level: ${pet.level}\n`;
-                    resultMessage += `🔥 EXP: ${pet.exp}\n`;
-                }
+      const collectionPath = path.resolve(__dirname, `temp_collection_${uid}.jpg`);
+      fs.writeFileSync(collectionPath, Buffer.from(response.data));
 
-                if (social) {
-                    resultMessage += "\n📝 SIGNATURE:\n";
-                    resultMessage += `📜 ${social.AccountSignature}\n`;
-                }
-
-                api.sendMessage(resultMessage, event.threadID);
-            } else {
-                api.sendMessage("No information or errors occur.", event.threadID);
-            }
-        } catch (error) {
-            console.error("Error when calling API:", error);
-            api.sendMessage("Error occurs when taking account information.", event.threadID);
-        }
-    }
-};
-
-module.exports.run = async function({
-    api,
-    event
-}) {
-    return api.sendMessage("Please choose the area (bd, dhaka, Bd, Dhaka):", event.threadID, (err, info) => {
-        global.client.handleReply.push({
-            name: module.exports.config.name,
-            messageID: info.messageID,
-            author: event.senderID,
-            step: 1
-        });
-    }, event.messageID);
+      return message.reply({
+        attachment: fs.createReadStream(collectionPath)
+      }).then(() => fs.unlinkSync(collectionPath)).catch(() => {});
+    } catch (error) {
+      await api.unsendMessage(waitMessage.messageID);
+      return message.reply("Error fetching collection.");
+    }
+  }
 };
