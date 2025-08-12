@@ -7,18 +7,20 @@ const API_KEY = "2f25567051a78d2f2b60a261af6babb8cb161bb32e24122eb4e6f21c767f46e
 
 module.exports = {
   config: {
-    name: "info",
+    name: "ffinfo",
     version: "1.0",
     credits: "RAHAT",
     usePrefix: true,
-    countDown: 5,
     hasPermission: 0,
-    description: { en: "Get FF player collection image." },
     commandCategory: "information",
+    countDown: 5,
+    role: 0,
+    description: { en: "Get FF player collection image." },
+    category: "information",
     guide: { en: "{pn} <UID>" }
   },
 
-  run: async function ({ api, args, message }) {
+  module.exports.run = async function ({ api, args, message }) {
     const uid = args[0];
     if (!uid) return message.reply("Provide UID!");
 
