@@ -1,0 +1,8 @@
+bin/
+.env
+Horizon_Database/
+node_modules/
+logger/logs
+TINA/commands/rankcard.js
+TINA/commands/get.js
+TINA/commands/get.js
