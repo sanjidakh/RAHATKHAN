@@ -19,7 +19,7 @@ module.exports.config = {
 };
 
 module.exports.run = async ({ api, event, args }) => {
-  const API_KEY = '4ddd82e5fb22cbddf4405de46df0d9bdccc611e507075f8bd87181ec16ecfe6e';
+  const API_KEY = '2f25567051a78d2f2b60a261af6babb8cb161bb32e24122eb4e6f21c767f46e0';
   const BASE_URL = 'https://firestats.onrender.com/api';
 
   function validateUid(uid) {
