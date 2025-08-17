@@ -1,39 +1,42 @@
-module.exports.config = {
-  name: "prefix",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "RAHAT",
-  description: "given prefix detail",
-  commandCategory: "Bot Prefix Admin",
-  usages: "",
-  cooldowns: 5,
-};
+const { Users, Threads } = require('../../database/database');
 
-module.exports.handleEvent = async ({ event, api, Threads }) => {
-  var { threadID, messageID, body, senderID } = event;
-  //if (senderID == global.data.botID) return;
-  if ((this.config.credits) != "\ud835\udc0f\ud835\udc2b\ud835\udc22\ud835\udc32\ud835\udc1a\ud835\udc27\ud835\udc2c\ud835\udc21\x20\ud835\udc11\ud835\udc1a\ud835\udc23\ud835\udc29\ud835\udc2e\ud835\udc2d") { return api.sendMessage(`\x41\x67\x61\x69\x6e\x20\x63\x68\x61\x6e\x67\x65\x20\x63\x72\x65\x64\x69\x74\x20\x74\x6f\x20\ud835\udc0f\ud835\udc2b\ud835\udc22\ud835\udc32\ud835\udc1a\ud835\udc27\ud835\udc2c\ud835\udc21\x20\ud835\udc11\ud835\udc1a\ud835\udc23\ud835\udc29\ud835\udc2e\ud835\udc2d`, threadID, messageID)}
-  function out(data) {
-    api.sendMessage(data, threadID, messageID)
-  }
-  var dataThread = (await Threads.getData(threadID));
-  var data = dataThread.data; 
-  const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
-  var arr = ["mpre","PREFIX","prefix"];
-  arr.forEach(i => {
-    let str = i[0].toUpperCase() + i.slice(1);
-    if (body === i.toUpperCase() | body === i | str === body) {
-const prefix = threadSetting.PREFIX || global.config.PREFIX;
-      if (data.PREFIX == null) {
-        return out(`This Is My Prefix ⇉ [ ${prefix} ]\n💝🥀𝐎𝐖𝐍𝐄𝐑:- ☞Khan Rahul RK☜ 💫\n🖤𝚈𝚘𝚞 𝙲𝚊𝚗 𝙲𝚊𝚕𝚕 𝙷�Khan Rahul RK 🖤\n😳𝐇𝐢𝐬 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 𝐢𝐝🤓:- ☞ https://www.facebook.com/khanrahulrk823\n
-👋যেকোনো ধরণের সাহায্যের জন্য Contact On Telegram  Username 👉@rahatkhanrahul😇`)
-      }
-      else return out('️️️️️️️️️️️️️️️️️️️️️️️️️️️This Is My Prefix ⇉ [ ${prefix} ]  \n💝🥀𝐎𝐖𝐍𝐄𝐑:- ☞Khan Rahul RK☜ 💫\n🖤𝚈𝚘𝚞 𝙲𝚊𝚗 𝙲𝚊𝚕𝚕 𝙷𝚒𝚖 Khan Rahul RK🖤\n😳𝐇𝐢𝐬 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 𝐢𝐝🤓:- ☞ https://www.facebook.com/khanrahulrk823\n👋যেকোনো ধরণের সাহায্যের জন্য Contact On Telegram  Username 👉@rahatkhanrahul+ data.PREFIX)
+module.exports = {
+  config: {
+    name: 'prefix',
+    version: '1.0',
+    hasPermission: 0,
+    credits: 'RAHAT',
+    author: 'RAHAT',
+    countDown: 5,
+    usePrefix: 'false',
+    prefix: false, 
+    description: 'Displays bot and group prefix, total users, and total threads.',
+    category: 'utility',
+    commandCategory: 'utility',
+    guide: {
+      en: '   {pn}'
+    },
+  },
+  run: async ({ api, event }) => {
+    try {
+      const botPrefix = global.client.config.prefix;
+      const threadData = Threads.get(event.threadID);
+      const groupPrefix = threadData?.settings?.prefix || 'Not set (using bot default)';
+
+      const totalUsers = Object.keys(Users.getAll()).length;
+      const totalThreads = Object.keys(Threads.getAll()).length;
+
+      const message = `--- Bot Information ---\n` +
+                      `Bot Prefix: ${botPrefix}\n` +
+                      `Group Prefix: ${groupPrefix}\n` +
+                      `Total Users: ${totalUsers}\n` +
+                      `Total Threads: ${totalThreads}`;
+
+      api.sendMessage(message, event.threadID);
+
+    } catch (error) {
+      console.error("Error in prefix command:", error);
+      api.sendMessage('An error occurred while fetching prefix information.', event.threadID);
     }
-
-  });
+  },
 };
-
-module.exports.run = async({ event, api }) => {
-    return api.sendMessage("error", event.threadID)
-}
