@@ -16,7 +16,7 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
     const moment = require("moment-timezone");
     var gio = moment.tz("Asia/Dhaka").format("HH:mm:ss || D/MM/YYYY");
 		var msg = {
-				body: `My prefix is » ${global.config.PREFIX} «\nUse Help for list of commands.`
+				body: `My prefix is » ${global.config.PREFIX} «\nUse Help for list of commands.\n\nMy Owner Facebook Id Link 🌹https://www.facebook.com/khanrahulrk823🌹 \nTelegram Id🇦🇪@rahatkhanrahul`
 			}
 			api.sendMessage(msg, threadID, messageID);
 		}
