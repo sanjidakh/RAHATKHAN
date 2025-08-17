@@ -1,42 +1,26 @@
-const { Users, Threads } = require('../../database/database');
-
-module.exports = {
-  config: {
-    name: 'prefix',
-    version: '1.0',
-    hasPermission: 0,
-    credits: 'RAHAT',
-    author: 'RAHAT',
-    countDown: 5,
-    usePrefix: 'false',
-    prefix: false, 
-    description: 'Displays bot and group prefix, total users, and total threads.',
-    category: 'utility',
-    commandCategory: 'utility',
-    guide: {
-      en: '   {pn}'
-    },
-  },
-  run: async ({ api, event }) => {
-    try {
-      const botPrefix = global.client.config.prefix;
-      const threadData = Threads.get(event.threadID);
-      const groupPrefix = threadData?.settings?.prefix || 'Not set (using bot default)';
-
-      const totalUsers = Object.keys(Users.getAll()).length;
-      const totalThreads = Object.keys(Threads.getAll()).length;
-
-      const message = `--- Bot Information ---\n` +
-                      `Bot Prefix: ${botPrefix}\n` +
-                      `Group Prefix: ${groupPrefix}\n` +
-                      `Total Users: ${totalUsers}\n` +
-                      `Total Threads: ${totalThreads}`;
-
-      api.sendMessage(message, event.threadID);
-
-    } catch (error) {
-      console.error("Error in prefix command:", error);
-      api.sendMessage('An error occurred while fetching prefix information.', event.threadID);
-    }
-  },
+const fs = require("fs");
+module.exports.config = {
+	name: "prefix",
+    version: "1.0.1",
+	hasPermssion: 0,
+	credits: "RAHUL", 
+	description: "no prefix",
+	commandCategory: "No command marks needed",
+	usages: "...",
+    cooldowns: 1, 
 };
+
+module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
+	var { threadID, messageID } = event;
+	if (event.body.indexOf("prefix")==0 || (event.body.indexOf("Prefix")==0 || (event.body.indexOf("Ano prefix")==0 || (event.body.indexOf("ano prefix")==0)))) {
+    const moment = require("moment-timezone");
+    var gio = moment.tz("Asia/Dhaka").format("HH:mm:ss || D/MM/YYYY");
+		var msg = {
+				body: `My prefix is » ${global.config.PREFIX} «\nUse Help for list of commands.`
+			}
+			api.sendMessage(msg, threadID, messageID);
+		}
+	}
+	module.exports.run = function({ api, event, client, __GLOBAL }) {
+
+  }
