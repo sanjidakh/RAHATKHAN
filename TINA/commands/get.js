@@ -3,7 +3,7 @@ const axios = require("axios");
 const path = require("path");
 
 module.exports.config = {
-  name: "get",
+  name: "freefire",
   version: "1.0.0",
   hasPermission: 0,
   credits: "RAHAT",
